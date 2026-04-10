@@ -1,0 +1,4 @@
+cd "LP1-E*/src"
+python3 -m controle.projeto
+
+é só trocar o * pelo numero da entrega que ele vai rodar direito no terminal 
