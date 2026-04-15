@@ -28,7 +28,7 @@ def criar_orçamento(numero_sinistro, nome_peça, nome_seguradora, data):
 def selecionar_orçamento(data_mínima_orçamento=None, valor_máximo_peça=None, cobertura_mínima_seguradora=None, prefixo_telefone_cliente=None):
     filtros = '\nFiltros -- '
     if data_mínima_orçamento is not None: filtros += ' Data mínima do orçamento: ' + str(data_mínima_orçamento)
-    if valor_máximo_peça is not None: filtros += ' Menor valor da peça: ' + str(valor_máximo_peça)
+    if valor_máximo_peça is not None: filtros += ' Maior valor da peça: ' + str(valor_máximo_peça)
     if cobertura_mínima_seguradora is not None: filtros += '\n - Cobertura mínima da seguradora: ' + str(cobertura_mínima_seguradora)
     if prefixo_telefone_cliente is not None: filtros += (' - Telefone do Cliente: ' + str(prefixo_telefone_cliente))
     orçamentos_selecionados = []
