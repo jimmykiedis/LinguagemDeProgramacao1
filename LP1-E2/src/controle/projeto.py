@@ -56,11 +56,7 @@ if __name__ == '__main__':
     print(' - Peças: Nome - Categoria - Preço - Mecânico Próprio')
     for índice, sinistro in enumerate(get_sinistros().values()):
         imprimir_objeto(índice=índice, objeto_str=sinistro)
-        print('-' * 60)
         imprimir_objetos_internos(sinistro.peças.values())
-        print('\n')
-        print('*' * 60)
-        print('\n')
     cadastrar_orçamentos()
     cabeçalho_orçamento = ('Orçamento: Numero do Sinistro - Nome da Peça - Nome da Seguradora - Data do orçamento')
     imprimir_objetos('\n' + cabeçalho_orçamento, get_orçamentos())
