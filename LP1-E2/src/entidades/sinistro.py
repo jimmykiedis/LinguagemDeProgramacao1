@@ -17,14 +17,14 @@ class Sinistro:
         self.numero = numero
         self.cliente = cliente
         self.telefone = telefone
-        self.peças = {}
+        self.pecas = {}
 
     def __str__(self):
-        formato = '{} {:<15} {} {:<21} {} {:<14}'
+        formato = '{} {:<3} {} {:<15} {} {:<14}'
         sinistro_formatado = formato.format('|', self.numero, '|', self.cliente, '|', self.telefone)      
         return sinistro_formatado
     
-    def inserir_peça(self, peça):
-        nome_peça = peça.nome
-        if nome_peça not in self.peças.keys(): self.peças[nome_peça] = peça
-        else: print('Nome ' + nome_peça + ' já foi cadastrada em Sinistro')
+    def inserir_peca(self, peca):
+        nome_peca = peca.nome
+        if nome_peca not in self.pecas.keys(): self.pecas[nome_peca] = peca
+        else: print('Nome ' + nome_peca + ' já foi cadastrada em Sinistro')
