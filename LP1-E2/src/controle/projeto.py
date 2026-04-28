@@ -54,14 +54,14 @@ if __name__ == '__main__':
                     objetos=get_sinistros().values())
 
     print('\n Sinistros: Número  -  Cliente  -  Telefone percentual')
-    print('\n - Pecas: Nome - Categoria - Preco - Mecânico Próprio')
+    print(' - Pecas: Nome - Categoria - Preco - Mecânico Próprio')
     for índice, sinistro in enumerate(get_sinistros().values()):
         imprimir_objeto(índice=índice, objeto_str=sinistro)
         imprimir_objetos_internos(sinistro.pecas.values())
 
     cadastrar_orcamentos()
     cabecalho_orcamento = ('Orcamento: Numero do Sinistro - Nome da Seguradora - Data do orcamento')
-    cabecalho_orcamento_filtros = (cabecalho_orcamento + '\n -- Cobertura Percentual - Telefone no Sinistro - Precos das pecas no sinistro')
+    cabecalho_orcamento_filtros = (cabecalho_orcamento + '\n -- Cobertura Percentual - Telefone no Sinistro - Precos das pecas')
 
     imprimir_objetos('\n' + cabecalho_orcamento, get_orcamentos())
     

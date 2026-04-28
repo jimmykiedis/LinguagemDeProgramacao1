@@ -29,7 +29,7 @@ def selecionar_orcamento(data_mínima_orcamento=None, valor_máximo_peca=None, c
     if data_mínima_orcamento is not None: filtros += ' Data mínima do orcamento: ' + str(data_mínima_orcamento)
     if valor_máximo_peca is not None: filtros += ' Maior valor da peca: ' + str(valor_máximo_peca)
     if cobertura_mínima_seguradora is not None: filtros += '\n - Cobertura mínima da seguradora: ' + str(cobertura_mínima_seguradora)
-    if prefixo_telefone_cliente is not None: filtros += (' - Telefone do Cliente: ' + str(prefixo_telefone_cliente))
+    if prefixo_telefone_cliente is not None: filtros += (' - DDD telefone cliente: ' + str(prefixo_telefone_cliente))
 
     orcamentos_selecionados = []
     for orcamento in orcamentos:
@@ -80,4 +80,3 @@ class Orcamento:
             '|', self.sinistro.telefone, '|', self.str_atributos_pecas(), '|'
         )
         return self.__str__() + filtro_formatado
-
