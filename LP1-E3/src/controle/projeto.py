@@ -50,10 +50,10 @@ if __name__ == '__main__':
     imprimir_objetos(cabeçalho= '\n Seguradoras: Nome  -  Cidade  -  Cobertura percentual', objetos=get_seguradoras().values())
 
     cadastrar_sinistros()
-    imprimir_objetos(cabeçalho='\n Sinistros: Número  -  Cliente  -  Telefone percentual',
+    imprimir_objetos(cabeçalho='\n Sinistros: Número  -  Cliente  -  Telefone',
                     objetos=get_sinistros().values())
 
-    print('\n Sinistros: Número  -  Cliente  -  Telefone percentual')
+    print('\n Sinistros: Número  -  Cliente  -  Telefone')
     print(' - Pecas: Nome - Categoria - Preco - Mecânico Próprio')
     for índice, sinistro in enumerate(get_sinistros().values()):
         imprimir_objeto(índice=índice, objeto_str=sinistro)
