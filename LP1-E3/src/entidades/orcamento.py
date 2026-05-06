@@ -52,9 +52,7 @@ def selecionar_orcamento(data_mínima_orcamento=None, valor_máximo_peca=None, c
         orcamentos_selecionados.append(orcamento)
     return filtros, orcamentos_selecionados
 
-
 class Orcamento:
-
     def __init__(self, sinistro, seguradora, data):
         self.sinistro = sinistro
         self.seguradora = seguradora
@@ -70,13 +68,13 @@ class Orcamento:
         for indice, peca in enumerate(self.sinistro.pecas.values()):
             if indice > 0:
                 atributos_pecas_str += ' - '
-            atributos_pecas_str += f'R$ {peca.preco:3d}'
+            atributos_pecas_str += f'R$ {peca.preco:.2f}'
         return atributos_pecas_str
 
     def str_filtro(self):
-        formato = '{:>2} {} {:<11} {} {:<15} {}'
+        formato = '{:>2} {} {:<11} {} {:<23} {}'
         filtro_formatado = formato.format(
-            str(self.seguradora.cobertura_percentual),
+            str(self.seguradora.cobertura_percentual) + '%',
             '|', self.sinistro.telefone, '|', self.str_atributos_pecas(), '|'
         )
         return self.__str__() + filtro_formatado

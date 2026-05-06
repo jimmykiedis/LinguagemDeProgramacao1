@@ -11,7 +11,7 @@ class Peca:
         if self.mão_obra_própria: mão_obra_própria_str = ' Mão de obra Própria |'
         else: mão_obra_própria_str = ''
         formato = '   {} {:<15} {} {:<12} {} {:<6} {} {}'
-        peca_formatado = formato.format('|', self.nome, '|', self.categoria, '|', self.preco, '|', mão_obra_própria_str)
+        peca_formatado = formato.format('|', self.nome, '|', self.categoria, '|', f'R$ {self.preco:.2f}', '|', mão_obra_própria_str)
         return peca_formatado
     
 class PeçaMecânica(Peca):
@@ -23,8 +23,8 @@ class PeçaMecânica(Peca):
     def __str__(self):
         if self.mão_obra_própria: mão_obra_própria_str = ' Mecânico Próprio |'
         else: mão_obra_própria_str = ''
-        formato = '   {} {:<15} {} {:<12} {} {:<6} {} {:<8} {} {:>8} {}'
-        peca_formatado = formato.format('|', self.nome, '|', self.categoria, '|', self.preco, '|', self.tipo, '|', self.prazo_garantia, '|', mão_obra_própria_str)
+        formato = '   {} {:<15} {} {:<8} {} {:<12} {} {:<8} {} {:>8} {}'
+        peca_formatado = formato.format('|', self.nome, '|', self.categoria, '|', f'R$ {self.preco:.2f}', '|', self.tipo, '|', self.prazo_garantia, '|', mão_obra_própria_str)
         return peca_formatado
 
 class PeçaLataria(Peca):
@@ -36,6 +36,6 @@ class PeçaLataria(Peca):
     def __str__(self):
         if self.mão_obra_própria: mão_obra_própria_str = ' Funileiro Próprio |'
         else: mão_obra_própria_str = ''
-        formato = '   {} {:<15} {} {:<12} {} {:<6} {} {:<8} {} {:>8} {}'
-        peca_formatado = formato.format('|', self.nome, '|', self.categoria, '|', self.preco, '|', self.tipo, '|', self.cor, '|', mão_obra_própria_str)
+        formato = '   {} {:<15} {} {:<8} {} {:<12} {} {:<8} {} {:>8} {}'
+        peca_formatado = formato.format('|', self.nome, '|', self.categoria, '|', f'R$ {self.preco:.2f}', '|', self.tipo, '|', self.cor, '|', mão_obra_própria_str)
         return peca_formatado

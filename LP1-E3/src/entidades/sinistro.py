@@ -20,8 +20,8 @@ class Sinistro:
         self.pecas = {}
 
     def __str__(self):
-        formato = '{} {:<3} {} {:<15} {} {:<14}'
-        sinistro_formatado = formato.format('|', self.numero, '|', self.cliente, '|', self.telefone)      
+        formato = '{} {:<3} {} {:<15} {} {:<14} {}'
+        sinistro_formatado = formato.format('|', self.numero, '|', self.cliente, '|', self.telefone, '|')      
         return sinistro_formatado
     
     def inserir_peca(self, peca):
