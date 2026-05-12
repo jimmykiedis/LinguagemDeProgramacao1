@@ -61,7 +61,7 @@ class Orcamento:
         self.data = data
 
     def __str__(self):
-        formato = '{} {:<15} {} {:<19} {} {:<10} {}'
+        formato = '{} {:<3} {} {:<19} {} {:<10} {}'
         mostra_formato = formato.format('|', self.sinistro.numero, '|', self.seguradora.nome, '|', str(self.data), '|')
         return mostra_formato
 
