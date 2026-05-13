@@ -31,7 +31,7 @@ def cadastrar_sinistros():
     sinistro = Sinistro(numero='19', cliente='Chris', telefone='44 90898-0100')
     inserir_sinistro(sinistro)
     sinistro.inserir_peca(PeçaLataria(código=41, nome='manopla', categoria='Original', preco=90, tipo='interno', cor='cinza', mão_obra_própria=True))
-    sinistro.inserir_peca(PeçaLataria(código=44, nome='volante', categoria='Original', preco=90, tipo='interno', cor='preto', mão_obra_própria=True))
+    sinistro.inserir_peca(PeçaLataria(código=44, nome='volante', categoria='Original', preco=90, tipo='interno', cor='cinza', mão_obra_própria=True))
 
     sinistro = Sinistro(numero='98', cliente='Redfield', telefone='66 91681-1198')
     inserir_sinistro(sinistro)
@@ -54,14 +54,15 @@ if __name__ == '__main__':
                     objetos=get_sinistros().values())
 
     print('\n Sinistros: Número  -  Cliente  -  Telefone')
-    print(' - Pecas: Nome - Categoria - Preco - Mecânico Próprio')
+    print(' - Pecas: Nome - Categoria - Preco - Tipo - Prazo de Garantia - Mão de obra própria')
     for índice, sinistro in enumerate(get_sinistros().values()):
-        imprimir_objeto(índice=índice, objeto_str=sinistro)
+        imprimir_objeto(índice=índice, objeto_str=str(sinistro))
         imprimir_objetos_internos(sinistro.pecas.values())
 
     cadastrar_orcamentos()
     cabecalho_orcamento = ('Orcamento: Numero do Sinistro - Nome da Seguradora - Data do orcamento')
-    cabecalho_orcamento_filtros = (cabecalho_orcamento + '\n -- Cobertura Percentual - Telefone no Sinistro - Precos das pecas')
+    cabecalho_orcamento_filtros = (cabecalho_orcamento + '\n -- Cobertura Percentual - Telefone no Sinistro - Precos das pecas'
+                                   + '\n PeçaMecânica[Tipo], PeçaLataria[Cor]')
 
     imprimir_objetos('\n' + cabecalho_orcamento, get_orcamentos())
     
@@ -74,8 +75,14 @@ if __name__ == '__main__':
     filtros, orcamentos_selecionados = selecionar_orcamento(Data(1, 5, 2026), valor_máximo_peca=255)
     imprimir_objetos_associação_filtros(cabecalho_orcamento_filtros, orcamentos_selecionados, filtros)
 
-    filtros, orcamentos_selecionados = selecionar_orcamento(Data(1, 5, 2026), 255, cobertura_mínima_seguradora=85)
+    filtros, orcamentos_selecionados = selecionar_orcamento(Data(1, 5, 2026), 255, tipo_peça_mecânica='suspensão')
     imprimir_objetos_associação_filtros(cabecalho_orcamento_filtros, orcamentos_selecionados, filtros)
 
-    filtros, orcamentos_selecionados = selecionar_orcamento(Data(1, 5, 2026), 255, 85, prefixo_telefone_cliente=67)
+    filtros, orcamentos_selecionados = selecionar_orcamento(Data(1, 5, 2026), 255, 'suspensão', cor_peça_lataria='cinza')
+    imprimir_objetos_associação_filtros(cabecalho_orcamento_filtros, orcamentos_selecionados, filtros)
+
+    filtros, orcamentos_selecionados = selecionar_orcamento(Data(1, 5, 2026), 255, 'suspensão', 'cinza', cobertura_mínima_seguradora=85)
+    imprimir_objetos_associação_filtros(cabecalho_orcamento_filtros, orcamentos_selecionados, filtros)
+
+    filtros, orcamentos_selecionados = selecionar_orcamento(Data(1, 5, 2026), 255, 'suspensão', 'cinza', 85, prefixo_telefone_cliente=67)
     imprimir_objetos_associação_filtros(cabecalho_orcamento_filtros, orcamentos_selecionados, filtros)

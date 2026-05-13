@@ -24,10 +24,12 @@ def criar_orcamento(numero_sinistro, nome_seguradora, data):
     inserir_orcamento(orcamento)
 
 
-def selecionar_orcamento(data_mínima_orcamento=None, valor_máximo_peca=None, cobertura_mínima_seguradora=None, prefixo_telefone_cliente=None):
+def selecionar_orcamento(data_mínima_orcamento=None, valor_máximo_peca=None, tipo_peça_mecânica=None, cor_peça_lataria=None, cobertura_mínima_seguradora=None, prefixo_telefone_cliente=None):
     filtros = '\nFiltros -- '
-    if data_mínima_orcamento is not None: filtros += ' Data mínima do orcamento: ' + str(data_mínima_orcamento)
-    if valor_máximo_peca is not None: filtros += ' Maior valor da peca: ' + str(valor_máximo_peca)
+    if data_mínima_orcamento is not None: filtros += 'Data mínima do orcamento: ' + str(data_mínima_orcamento)
+    if valor_máximo_peca is not None: filtros += ' - Maior valor da peca: ' + str(valor_máximo_peca)
+    if tipo_peça_mecânica is not None: filtros += ' - Tipo de peça: ' + str(tipo_peça_mecânica)
+    if cor_peça_lataria is not None: filtros += ' - Cor da peça: ' + str(cor_peça_lataria)
     if cobertura_mínima_seguradora is not None: filtros += '\n - Cobertura mínima da seguradora: ' + str(cobertura_mínima_seguradora)
     if prefixo_telefone_cliente is not None: filtros += (' - DDD telefone cliente: ' + str(prefixo_telefone_cliente))
 
@@ -69,6 +71,10 @@ class Orcamento:
             if indice > 0:
                 atributos_pecas_str += ' - '
             atributos_pecas_str += f'R$ {peca.preco:.2f}'
+            if isinstance(peca, PeçaMecânica):
+                atributos_pecas_str += peca.tipo
+            elif isinstance(peca, PeçaLataria):
+                atributos_pecas_str += peca.cor
         return atributos_pecas_str
 
     def str_filtro(self):
