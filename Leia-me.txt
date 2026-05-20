@@ -1,0 +1,6 @@
+O nome do arquivo deve ser:
+    LPI - Etapa n - Leonardo Farias de Oliveira
+        *mudar "n" pelo numero da etapa
+
+O site para teste de empacotamento é:
+    https://teste-empacotamento-etapas.squareweb.app
