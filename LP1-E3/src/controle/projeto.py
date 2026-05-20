@@ -11,7 +11,7 @@ def cadastrar_seguradoras():
     inserir_seguradora(Seguradora(nome='SulAmérica', cidade='Ponta porã', cobertura_percentual=70))
     inserir_seguradora(Seguradora(nome='Mapfre', cidade='Dourados', cobertura_percentual=85))
     inserir_seguradora(Seguradora(nome='Allianz', cidade='Campo Grande', cobertura_percentual=75))
-    inserir_seguradora(Seguradora(nome='Tokio Marine', cidade='Ponta Porã', cobertura_percentual=65))
+    inserir_seguradora(Seguradora(nome='Tokio Marine', cidade='Ponta Porã', cobertura_percentual=90))
     inserir_seguradora(Seguradora(nome='Azos Seguros', cidade='São Paulo', cobertura_percentual=99))
     inserir_seguradora(Seguradora(nome='Liberty Seguros', cidade='Dourados', cobertura_percentual=55))
     inserir_seguradora(Seguradora(nome='Sompo Seguros', cidade='Maracaju', cobertura_percentual=75))
@@ -26,17 +26,17 @@ def cadastrar_sinistros():
     sinistro = Sinistro(numero='6', cliente='Scott', telefone='67 98988-1101')
     inserir_sinistro(sinistro)
     sinistro.inserir_peca(PeçaLataria(código=21, nome='para-choque', categoria='Original', preco=200, tipo='externo', cor='preto', mão_obra_própria=False))
-    sinistro.inserir_peca(PeçaLataria(código=22, nome='capô', categoria='Original', preco=180, tipo='externo', cor='preto', mão_obra_própria=False))
+    sinistro.inserir_peca(PeçaLataria(código=22, nome='capô', categoria='Original', preco=180, tipo='externo', cor='cinza', mão_obra_própria=False))
 
     sinistro = Sinistro(numero='11', cliente='Kennedy', telefone='67 96898-1000')
     inserir_sinistro(sinistro)
-    sinistro.inserir_peca(PeçaMecânica(código=31, nome='terminal', categoria='Original', preco=180, tipo='direção', prazo_garantia='90 dias', mão_obra_própria=True))
-    sinistro.inserir_peca(PeçaMecânica(código=33, nome='barra axial', categoria='Original', preco=220, tipo='direção', prazo_garantia='180 dias', mão_obra_própria=True))
+    sinistro.inserir_peca(PeçaMecânica(código=31, nome='amortecedor', categoria='Original', preco=180, tipo='suspensão', prazo_garantia='90 dias', mão_obra_própria=True))
+    sinistro.inserir_peca(PeçaMecânica(código=33, nome='kit batente', categoria='Original', preco=220, tipo='suspensão', prazo_garantia='180 dias', mão_obra_própria=True))
 
     sinistro = Sinistro(numero='19', cliente='Chris', telefone='44 90898-0100')
     inserir_sinistro(sinistro)
     sinistro.inserir_peca(PeçaLataria(código=41, nome='painel central', categoria='OEM', preco=135, tipo='interno', cor='cinza', mão_obra_própria=True))
-    sinistro.inserir_peca(PeçaLataria(código=44, nome='volante', categoria='Original', preco=60, tipo='interno', cor='preto', mão_obra_própria=True))
+    sinistro.inserir_peca(PeçaLataria(código=44, nome='volante', categoria='Original', preco=60, tipo='interno', cor='cinza', mão_obra_própria=True))
 
     sinistro = Sinistro(numero='98', cliente='Redfield', telefone='66 91681-1198')
     inserir_sinistro(sinistro)
@@ -50,18 +50,18 @@ def cadastrar_sinistros():
 
     sinistro = Sinistro(numero='145', cliente='Claire', telefone='67 98112-2290')
     inserir_sinistro(sinistro)
-    sinistro.inserir_peca(PeçaLataria(código=71, nome='retrovisor', categoria='Original', preco=210, tipo='externo', cor='branco', mão_obra_própria=False))
-    sinistro.inserir_peca(PeçaLataria(código=72, nome='porta dianteira', categoria='Original', preco=170, tipo='externo', cor='branco', mão_obra_própria=False))
+    sinistro.inserir_peca(PeçaLataria(código=71, nome='retrovisor', categoria='Original', preco=210, tipo='externo', cor='cinza', mão_obra_própria=False))
+    sinistro.inserir_peca(PeçaLataria(código=72, nome='porta dianteira', categoria='Original', preco=170, tipo='externo', cor='cinza', mão_obra_própria=False))
 
     sinistro = Sinistro(numero='201', cliente='Ada', telefone='65 99677-4400')
     inserir_sinistro(sinistro)
     sinistro.inserir_peca(PeçaMecânica(código=81, nome='radiador', categoria='Genuína', preco=160, tipo='motor', prazo_garantia='365 dias', mão_obra_própria=True))
-    sinistro.inserir_peca(PeçaMecânica(código=82, nome='bomba d’água', categoria='Genuína', preco=140, tipo='motor', prazo_garantia='365 dias', mão_obra_própria=True))
+    sinistro.inserir_peca(PeçaMecânica(código=82, nome='bieleta', categoria='Genuína', preco=140, tipo='suspensão', prazo_garantia='365 dias', mão_obra_própria=True))
 
     sinistro = Sinistro(numero='250', cliente='Rebecca', telefone='67 99123-4455')
     inserir_sinistro(sinistro)
     sinistro.inserir_peca(PeçaLataria(código=91, nome='farol', categoria='Original', preco=140, tipo='externo', cor='prata', mão_obra_própria=False))
-    sinistro.inserir_peca(PeçaMecânica(código=92, nome='lanterna', categoria='OEM', preco=290, tipo='externo', prazo_garantia='180 dias', mão_obra_própria=True))
+    sinistro.inserir_peca(PeçaLataria(código=92, nome='lanterna', categoria='OEM', preco=290, tipo='externo', cor='preto', mão_obra_própria=True))
 
 def cadastrar_orcamentos():
     criar_orcamento(numero_sinistro='1', nome_seguradora='Porto Seguro', data=Data(dia=12, mês=6, ano=2026))
