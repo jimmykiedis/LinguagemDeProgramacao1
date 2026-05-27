@@ -15,16 +15,16 @@ class Peca:
         return peca_formatado
     
 class PeçaMecânica(Peca):
-    def __init__(self, código, nome, categoria, preco, tipo, prazo_garantia, mão_obra_própria):
+    def __init__(self, código, nome, categoria, preco, tipo, dias_garantia, mão_obra_própria):
         super().__init__(código, nome, categoria, preco, mão_obra_própria) 
         self.tipo = tipo if tipo in ('suspensão', 'direção', 'motor') else 'indefinida'
-        self.prazo_garantia = prazo_garantia
+        self.dias_garantia = dias_garantia
 
     def __str__(self):
         if self.mão_obra_própria: mão_obra_própria_str = ' Mecânico Próprio |'
         else: mão_obra_própria_str = ''
         formato = '   {} {:<15} {} {:<8} {} {:<12} {} {:<8} {} {:>8} {} {:>20}'
-        peca_formatado = formato.format('|', self.nome, '|', self.categoria, '|', f'R$ {self.preco:.2f}', '|', self.tipo, '|', self.prazo_garantia, '|', mão_obra_própria_str)
+        peca_formatado = formato.format('|', self.nome, '|', self.categoria, '|', f'R$ {self.preco:.2f}', '|', self.tipo, '|', self.dias_garantia, '|', mão_obra_própria_str)
         return peca_formatado
 
 class PeçaLataria(Peca):
