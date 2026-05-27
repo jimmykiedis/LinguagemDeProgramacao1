@@ -131,20 +131,40 @@ if __name__ == '__main__':
     filtros, orcamentos_selecionados = selecionar_orcamento(
         Data(1, 5, 2026), 255, 80, 67, tipo_peça_mecânica='suspensão'
         )
-    imprimir_objetos_associação_filtros(cabecalho_orcamento_filtros + cabecalho_orcamento_sequencia1, orcamentos_selecionados, filtros)
+    imprimir_objetos_associação_filtros(
+        cabecalho_orcamento_filtros
+        + cabecalho_orcamento_sequencia1
+        + ' -- para filtrar: peças mecânicas',
+        orcamentos_selecionados,
+        '\n filtro -- Tipo de peça = suspensão'
+    )
 
     filtros, orcamentos_selecionados = selecionar_orcamento(
         Data(1, 5, 2026), 255, 80, 67, 'suspensão', dias_garantia_maiores=90
         )
-    imprimir_objetos_associação_filtros(cabecalho_orcamento_filtros + cabecalho_orcamento_sequencia1, orcamentos_selecionados, filtros)
+    imprimir_objetos_associação_filtros(
+        cabecalho_orcamento_filtros + cabecalho_orcamento_sequencia1,
+        orcamentos_selecionados,
+        '\n filtro -- Dias de garantia > 90'
+    )
 
     filtros, orcamentos_selecionados = selecionar_orcamento(
         Data(1, 5, 2026), 255, 80, 67, tipo_peça_lataria='externo'
         )
-    imprimir_objetos_associação_filtros(cabecalho_orcamento_filtros + cabecalho_orcamento_sequencia2, orcamentos_selecionados, filtros)
+    imprimir_objetos_associação_filtros(
+        cabecalho_orcamento_filtros
+        + cabecalho_orcamento_sequencia2
+        + ' -- para filtrar: peças de lataria',
+        orcamentos_selecionados,
+        '\n filtro -- Tipo de peça de lataria = externo'
+    )
 
     filtros, orcamentos_selecionados = selecionar_orcamento(
         Data(1, 5, 2026), 255, 80, 67, tipo_peça_lataria='externo', cor_peça_lataria='cinza'
         )
-    imprimir_objetos_associação_filtros(cabecalho_orcamento_filtros + cabecalho_orcamento_sequencia2, orcamentos_selecionados, filtros)
+    imprimir_objetos_associação_filtros(
+        cabecalho_orcamento_filtros + cabecalho_orcamento_sequencia2,
+        orcamentos_selecionados,
+        '\n filtro -- Cor da peça de lataria = cinza'
+    )
 
