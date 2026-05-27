@@ -25,15 +25,15 @@ def criar_orcamento(numero_sinistro, nome_seguradora, data):
     inserir_orcamento(orcamento)
 
 
-def selecionar_orcamento(data_mínima_orcamento=None, valor_máximo_peca=None, tipo_peça_mecânica=None,
-                         cor_peça_lataria=None, cobertura_mínima_seguradora=None, prefixo_telefone_cliente=None):
+def selecionar_orcamento(data_mínima_orcamento=None, valor_máximo_peca=None, cobertura_mínima_seguradora=None, prefixo_telefone_cliente=None, tipo_peça_mecânica=None,
+                         cor_peça_lataria=None):
     filtros = '\nFiltros -- '
     if data_mínima_orcamento is not None: filtros += 'Data mínima do orcamento: ' + str(data_mínima_orcamento)
     if valor_máximo_peca is not None: filtros += ' - Maior valor da peca: ' + str(valor_máximo_peca)
-    if tipo_peça_mecânica is not None: filtros += ' - Tipo de peça: ' + str(tipo_peça_mecânica)
-    if cor_peça_lataria is not None: filtros += ' - Cor da peça: ' + str(cor_peça_lataria)
     if cobertura_mínima_seguradora is not None: filtros += '\n - Cobertura mínima da seguradora: ' + str(cobertura_mínima_seguradora)
     if prefixo_telefone_cliente is not None: filtros += (' - DDD telefone cliente: ' + str(prefixo_telefone_cliente))
+    if tipo_peça_mecânica is not None: filtros += ' - Tipo de peça: ' + str(tipo_peça_mecânica)
+    if cor_peça_lataria is not None: filtros += ' - Cor da peça: ' + str(cor_peça_lataria)
 
     orcamentos_selecionados = []
     for orcamento in orcamentos:
@@ -46,6 +46,16 @@ def selecionar_orcamento(data_mínima_orcamento=None, valor_máximo_peca=None, t
                 excluir_orcamento = True
                 break
 
+        if excluir_orcamento:
+            continue
+
+        if cobertura_mínima_seguradora is not None and orcamento.seguradora.cobertura_percentual < cobertura_mínima_seguradora:
+            continue
+
+        if prefixo_telefone_cliente is not None and not orcamento.sinistro.telefone.startswith(str(prefixo_telefone_cliente)):
+            continue
+
+        for peca in orcamento.sinistro.pecas.values():
             if isinstance(peca, PeçaMecânica):
                 if tipo_peça_mecânica is not None and peca.tipo is not tipo_peça_mecânica:
                     excluir_orcamento = True
@@ -54,13 +64,8 @@ def selecionar_orcamento(data_mínima_orcamento=None, valor_máximo_peca=None, t
                 if cor_peça_lataria is not None and peca.cor is not cor_peça_lataria:
                     excluir_orcamento = True
                     break
+
         if excluir_orcamento:
-            continue
-
-        if cobertura_mínima_seguradora is not None and orcamento.seguradora.cobertura_percentual < cobertura_mínima_seguradora:
-            continue
-
-        if prefixo_telefone_cliente is not None and not orcamento.sinistro.telefone.startswith(str(prefixo_telefone_cliente)):
             continue
 
         orcamentos_selecionados.append(orcamento)
@@ -81,8 +86,8 @@ class Orcamento:
         atributos_pecas_str = ''
         for indice, peca in enumerate(self.sinistro.pecas.values()):
             if indice > 0:
-                atributos_pecas_str += ' - '
-            atributos_pecas_str += f'R$ {peca.preco:.2f} '
+                atributos_pecas_str += ' -- '
+            atributos_pecas_str += f'R$ {peca.preco:.2f} - '
             if isinstance(peca, PeçaMecânica):
                 atributos_pecas_str += peca.tipo
             elif isinstance(peca, PeçaLataria):
@@ -90,7 +95,7 @@ class Orcamento:
         return atributos_pecas_str
 
     def str_filtro(self):
-        formato = '{:>2} {} {:<11} {} {:<43} {}'
+        formato = '{:>2} {} {:<11} {} {:<46} {}'
         filtro_formatado = formato.format(
             str(self.seguradora.cobertura_percentual) + '%',
             '|', self.sinistro.telefone, '|', self.str_atributos_pecas(), '|'

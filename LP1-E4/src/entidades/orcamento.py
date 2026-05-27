@@ -81,8 +81,8 @@ class Orcamento:
         atributos_pecas_str = ''
         for indice, peca in enumerate(self.sinistro.pecas.values()):
             if indice > 0:
-                atributos_pecas_str += ' - '
-            atributos_pecas_str += f'R$ {peca.preco:.2f} '
+                atributos_pecas_str += ' -- '
+            atributos_pecas_str += f'R$ {peca.preco:.2f} - '
             if isinstance(peca, PeçaMecânica):
                 atributos_pecas_str += peca.tipo
             elif isinstance(peca, PeçaLataria):
@@ -90,7 +90,7 @@ class Orcamento:
         return atributos_pecas_str
 
     def str_filtro(self):
-        formato = '{:>2} {} {:<11} {} {:<43} {}'
+        formato = '{:>2} {} {:<11} {} {:<45} {}'
         filtro_formatado = formato.format(
             str(self.seguradora.cobertura_percentual) + '%',
             '|', self.sinistro.telefone, '|', self.str_atributos_pecas(), '|'
