@@ -25,15 +25,21 @@ def criar_orcamento(numero_sinistro, nome_seguradora, data):
     inserir_orcamento(orcamento)
 
 
-def selecionar_orcamento(data_mínima_orcamento=None, valor_máximo_peca=None, cobertura_mínima_seguradora=None, prefixo_telefone_cliente=None, tipo_peça_mecânica=None,
-                         cor_peça_lataria=None):
+def selecionar_orcamento(data_mínima_orcamento=None, valor_máximo_peca=None, cobertura_mínima_seguradora=None, prefixo_telefone_cliente=None, 
+                         tipo_peça_mecânica=None, prazo_garantia_maiores=None, tipo_peça_lataria=None, cor_peça_lataria=None):
     filtros = '\nFiltros -- '
     if data_mínima_orcamento is not None: filtros += 'Data mínima do orcamento: ' + str(data_mínima_orcamento)
     if valor_máximo_peca is not None: filtros += ' - Maior valor da peca: ' + str(valor_máximo_peca)
     if cobertura_mínima_seguradora is not None: filtros += '\n - Cobertura mínima da seguradora: ' + str(cobertura_mínima_seguradora)
     if prefixo_telefone_cliente is not None: filtros += (' - DDD telefone cliente: ' + str(prefixo_telefone_cliente))
     if tipo_peça_mecânica is not None: filtros += ' - Tipo de peça: ' + str(tipo_peça_mecânica)
+    if prazo_garantia_maiores is not None: filtros += ' - Garantia maior que (dias): ' + str(prazo_garantia_maiores)
+    if tipo_peça_lataria is not None: filtros += ' - Tipo de lataria: ' + str(tipo_peça_lataria)
     if cor_peça_lataria is not None: filtros += ' - Cor da peça: ' + str(cor_peça_lataria)
+
+
+    filtrar_mecanica = tipo_peça_mecânica is not None or prazo_garantia_maiores is not None
+    filtrar_lataria = tipo_peça_lataria is not None or cor_peça_lataria is not None
 
     orcamentos_selecionados = []
     for orcamento in orcamentos:
@@ -55,16 +61,33 @@ def selecionar_orcamento(data_mínima_orcamento=None, valor_máximo_peca=None, c
         if prefixo_telefone_cliente is not None and not orcamento.sinistro.telefone.startswith(str(prefixo_telefone_cliente)):
             continue
 
-        for peca in orcamento.sinistro.pecas.values():
-            if isinstance(peca, PeçaMecânica):
-                if tipo_peça_mecânica is not None and peca.tipo is not tipo_peça_mecânica:
-                    excluir_orcamento = True
-                    break
-            elif isinstance(peca, PeçaLataria):
-                if cor_peça_lataria is not None and peca.cor is not cor_peça_lataria:
-                    excluir_orcamento = True
-                    break
+        pecas_mecanicas = [peca for peca in orcamento.sinistro.pecas.values() if isinstance(peca, PeçaMecânica)]
+        pecas_lataria = [peca for peca in orcamento.sinistro.pecas.values() if isinstance(peca, PeçaLataria)]
 
+        if filtrar_mecanica and not pecas_mecanicas:
+            continue
+        if filtrar_lataria and not pecas_lataria:
+            continue
+
+        for peca in pecas_mecanicas:
+            if tipo_peça_mecânica is not None and peca.tipo != tipo_peça_mecânica:
+                excluir_orcamento = True
+                break
+            if prazo_garantia_maiores is not None:
+                prazo_dias = int(str(peca.prazo_garantia).split()[0])
+                if prazo_dias <= prazo_garantia_maiores:
+                    excluir_orcamento = True
+                    break
+        if excluir_orcamento:
+            continue
+
+        for peca in pecas_lataria:
+            if tipo_peça_lataria is not None and peca.tipo != tipo_peça_lataria:
+                excluir_orcamento = True
+                break
+            if cor_peça_lataria is not None and peca.cor != cor_peça_lataria:
+                excluir_orcamento = True
+                break
         if excluir_orcamento:
             continue
 

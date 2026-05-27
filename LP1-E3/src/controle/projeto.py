@@ -22,7 +22,7 @@ def cadastrar_sinistros():
     sinistro = Sinistro(numero='1', cliente='Leon', telefone='67 99888-1100')
     inserir_sinistro(sinistro)
     sinistro.inserir_peca(PeçaMecânica(código=11, nome='bandeja', categoria='OEM', preco=245, tipo='suspensão', prazo_garantia='90 dias', mão_obra_própria=False))
-    sinistro.inserir_peca(PeçaMecânica(código=12, nome='pivô', categoria='OEM', preco=250, tipo='suspensão', prazo_garantia='90 dias', mão_obra_própria=False))
+    sinistro.inserir_peca(PeçaMecânica(código=12, nome='pivô', categoria='OEM', preco=250, tipo='suspensão', prazo_garantia='180 dias', mão_obra_própria=False))
 
     sinistro = Sinistro(numero='6', cliente='Scott', telefone='67 98988-1101')
     inserir_sinistro(sinistro)
@@ -31,7 +31,7 @@ def cadastrar_sinistros():
 
     sinistro = Sinistro(numero='11', cliente='Kennedy', telefone='67 96898-1000')
     inserir_sinistro(sinistro)
-    sinistro.inserir_peca(PeçaMecânica(código=31, nome='amortecedor', categoria='Original', preco=180, tipo='suspensão', prazo_garantia='90 dias', mão_obra_própria=True))
+    sinistro.inserir_peca(PeçaMecânica(código=31, nome='amortecedor', categoria='Original', preco=180, tipo='suspensão', prazo_garantia='180 dias', mão_obra_própria=True))
     sinistro.inserir_peca(PeçaMecânica(código=33, nome='kit batente', categoria='Original', preco=220, tipo='suspensão', prazo_garantia='180 dias', mão_obra_própria=True))
 
     sinistro = Sinistro(numero='19', cliente='Chris', telefone='67 90898-0100')
@@ -46,7 +46,7 @@ def cadastrar_sinistros():
 
     sinistro = Sinistro(numero='102', cliente='Jill', telefone='67 99234-8811')
     inserir_sinistro(sinistro)
-    sinistro.inserir_peca(PeçaMecânica(código=61, nome='amortecedor', categoria='OEM', preco=150, tipo='suspensão', prazo_garantia='180 dias', mão_obra_própria=False))
+    sinistro.inserir_peca(PeçaMecânica(código=61, nome='bomba oleo', categoria='OEM', preco=150, tipo='motor', prazo_garantia='180 dias', mão_obra_própria=False))
     sinistro.inserir_peca(PeçaMecânica(código=62, nome='mola', categoria='OEM', preco=210, tipo='suspensão', prazo_garantia='180 dias', mão_obra_própria=False))
 
     sinistro = Sinistro(numero='145', cliente='Claire', telefone='67 98112-2290')
@@ -99,6 +99,9 @@ if __name__ == '__main__':
     cabecalho_orcamento = ('Orcamento: Numero do Sinistro - Nome da Seguradora - Data do orcamento')
     cabecalho_orcamento_filtros = (cabecalho_orcamento + '\n -- Cobertura Percentual - Telefone no Sinistro - Precos das pecas'
                                    + '\n PeçaMecânica[Tipo], PeçaLataria[Cor]')
+    cabecalho_orcamento_sequencia1 = ('--- Sequencia 1: \n tipo_peça_mecânica [suspensão]')
+    cabecalho_orcamento_sequencia2 = ('--- Sequencia 2: \n cor_peça_lataria [cinza]')
+    
 
     imprimir_objetos('\n' + cabecalho_orcamento, get_orcamentos())
     
@@ -117,8 +120,16 @@ if __name__ == '__main__':
     filtros, orcamentos_selecionados = selecionar_orcamento(Data(1, 5, 2026), 255, 80, prefixo_telefone_cliente=67)
     imprimir_objetos_associação_filtros(cabecalho_orcamento_filtros, orcamentos_selecionados, filtros)
 
-    filtros, orcamentos_selecionados = selecionar_orcamento(Data(1, 5, 2026), 255, 80, tipo_peça_mecânica='suspensão')
-    imprimir_objetos_associação_filtros(cabecalho_orcamento_filtros, orcamentos_selecionados, filtros)
+    filtros, orcamentos_selecionados = selecionar_orcamento(Data(1, 5, 2026), 255, 80, 67, tipo_peça_mecânica='suspensão')
+    imprimir_objetos_associação_filtros(cabecalho_orcamento_sequencia1, orcamentos_selecionados, filtros)
 
-    filtros, orcamentos_selecionados = selecionar_orcamento(Data(1, 5, 2026), 255, 80, cor_peça_lataria='cinza')
-    imprimir_objetos_associação_filtros(cabecalho_orcamento_filtros, orcamentos_selecionados, filtros)
+    filtros, orcamentos_selecionados = selecionar_orcamento(Data(1, 5, 2026), 255, 80, 67, 'suspensão', prazo_garantia_maiores=90)
+    imprimir_objetos_associação_filtros(cabecalho_orcamento_sequencia1, orcamentos_selecionados, filtros)
+
+    filtros, orcamentos_selecionados = selecionar_orcamento(Data(1, 5, 2026), 255, 80, 67, tipo_peça_lataria='externo')
+    imprimir_objetos_associação_filtros(cabecalho_orcamento_sequencia2, orcamentos_selecionados, filtros)
+
+    filtros, orcamentos_selecionados = selecionar_orcamento(
+        Data(1, 5, 2026), 255, 80, 67, tipo_peça_lataria='externo', cor_peça_lataria='cinza'
+    )
+    imprimir_objetos_associação_filtros(cabecalho_orcamento_sequencia2, orcamentos_selecionados, filtros)
