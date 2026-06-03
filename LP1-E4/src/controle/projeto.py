@@ -1,9 +1,23 @@
+import pickle
 from util.persistência_arquivo import carregar_arquivo, salvar_arquivo
 from entidades.seguradora import get_seguradoras, set_seguradoras
 from entidades.peca import get_pecas, set_pecas
 from entidades.sinistro import get_sinistros, set_sinistros
 from entidades.orcamento import get_orcamentos, set_orcamentos
 from interfaces.interface_textual import loop_opções_execução
+
+def salvar_arquivo(nome_arquivo, objetos):
+    arquivo = open('../../dados/' + nome_arquivo + 'bin', 'wb')
+    pickle.dump(objetos, arquivo)
+    arquivo.close()
+
+def carregar_arquivo(nome_arquivo):
+    try:
+        arquivo = open('../../dados/' + nome_arquivo + '.bin', 'rb')
+        objetos = pickle.load(arquivo)
+    except IOError:
+        objetos = None
+    return objetos
 
 nome_arquivo = 'orçamento_peças'
 

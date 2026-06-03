@@ -134,4 +134,3 @@ class Orcamento:
             '|'
         )
         return self.__str__() + filtro_formatado
-
