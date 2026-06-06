@@ -23,7 +23,7 @@ integral dos PDFs.
 Muitos tutoriais usam o sistema de referência do professor:
 
 ```text
-Divulgação de Lançamentos de Veículos
+Lançamentos de veículos de uma montadora por uma agência de Publicidade
 Montadora, Veículo, Carro, Caminhão, AgênciaPublicidade, Lançamento
 ```
 
