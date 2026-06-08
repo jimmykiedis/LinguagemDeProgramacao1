@@ -1,4 +1,5 @@
 from datetime import date
+from re import match
 
 class Data:
     def __init__(self, dia, mês, ano):
@@ -55,3 +56,8 @@ class Data:
             idade = ano_referência - self.ano
         if mês_referência < self.mês or (mês_referência == self.mês and dia_referência < self.dia): idade -= 1
         return idade
+    
+def converte_str_para_data(data_str):
+    if not match(r'(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/\d{4}', data_str): return None
+    dia, mês, ano = data_str.split('/')
+    return Data(int(dia), int(mês), int(ano))

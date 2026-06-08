@@ -2,6 +2,10 @@ seguradoras = {}
 
 def get_seguradoras(): return seguradoras
 
+def set_seguradoras(seguradoras1):
+    global seguradoras
+    seguradoras = seguradoras1
+
 def inserir_seguradora(seguradora): 
     nome_seguradora = seguradora.nome
     if nome_seguradora not in seguradoras.keys():

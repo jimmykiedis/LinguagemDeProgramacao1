@@ -218,7 +218,7 @@ def selecionar_orçamentos():
     tipo_peça_mecânica = ler_str('tipo de peça mecânica', filtro=True)
     if tipo_peça_mecânica is not None: filtros += ' - Tipo de peça: ' + str(tipo_peça_mecânica)
 
-    tipo_carro = ler_tipo_carro(filtro=True)
+    tipo_carro = ler_categoria_peça(filtro=True)
     if tipo_carro is not None: filtros += '\n - tipo do carro: ' + tipo_carro
 
     capacidade_mínima_carga_caminhão = ler_int_positivo('capacidade mínima de carga do caminhão', filtro=True)
@@ -228,3 +228,87 @@ def selecionar_orçamentos():
                                                    ranking_máximo_avaliação_agência_publicidade, país_origem_montadora,
                                                    potência_mínima_veículo, tipo_carro, capacidade_mínima_carga_caminhão)
     return filtros, lançamentos_selecionados
+
+def ler_str(dado, filtro=False, retornar=False):
+    try:
+        string = input('- ' + dado + ' : ')
+        if len(string) == 0 and (filtro or retornar): return None
+        if len(string) > 0: return string
+    except IOError: pass
+    print('Erro na leitura do dado: ' + dado)
+    return None
+
+def ler_int_positivo(dado, filtro=False):
+    try:
+        string = input('- ' + dado + ' : ')
+        if len(string) == 0 and filtro: return None
+        int_positivo = int(string)
+        if int_positivo > 0: return int_positivo
+    except ValueError: pass
+    print('Erro na leitura/conversão do inteiro positivo: ' + dado)
+    return None
+
+def ler_float_positivo(dado, filtro=False):
+    try:
+        string = input('- ' + dado + ' : ')
+        if len(string) == 0 and filtro: return None
+        float_positivo = float(string)
+        if float_positivo > 0.0: return float_positivo
+    except ValueError: pass
+    print('Erro na leitura/conversão do flutuante positivo: ' + dado)
+    return None
+
+def ler_bool(dado, filtro=False):
+    try:
+        string = input('- ' + dado + ' [S/N]: ')
+        if len(string) == 0 and filtro: return None
+        if string == 'S': return True
+        elif string == 'N': return False
+    except ValueError: pass
+    print('Erro na leitura do booleano: ' + dado)
+    return None
+
+def ler_data(dado, filtro=False):
+    try:
+        string = input('- ' + dado + ' [dd/mm/aaaa]: ')
+        if len(string) == 0 and filtro: return None
+        data = converte_str_para_data(string)
+        if data is not None: return data
+    except IOError: pass
+    print('Erro na leitura da data: ' + dado)
+    return None
+
+def ler_categoria_peça(filtro=False):
+    try:
+        string = input(
+            '- tipo de peça [A=Original / B=Genuína / C=OEM ]: ')
+        if len(string) == 0 and filtro: return None
+        if string == 'A': return 'Original'
+        if string == 'B': return 'Genuína'
+        if string == 'C': return 'OEM'
+    except IOError: pass
+    print('Erro na leitura da categoria de peça')
+    return None
+
+def ler_tipo_peça_mecanica(filtro=False):
+    try:
+        string = input(
+            '- tipo de peça [A=suspensão / B=direção / C=motor]: ')
+        if len(string) == 0 and filtro: return None
+        if string == 'A': return 'suspensão'
+        if string == 'B': return 'direção'
+        if string == 'C': return 'motor'
+    except IOError: pass
+    print('Erro na leitura do tipo de peça mecânica')
+    return None
+
+def ler_tipo_peça_lataria(filtro=False):
+    try:
+        string = input(
+            '- tipo de peça [A=externo / B=interno]: ')
+        if len(string) == 0 and filtro: return None
+        if string == 'A': return 'externo'
+        if string == 'B': return 'interno'
+    except IOError: pass
+    print('Erro na leitura do tipo de peça de lataria')
+    return None

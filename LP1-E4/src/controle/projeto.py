@@ -1,7 +1,6 @@
 import pickle
 from util.persistência_arquivo import carregar_arquivo, salvar_arquivo
 from entidades.seguradora import get_seguradoras, set_seguradoras
-from entidades.peca import get_pecas, set_pecas
 from entidades.sinistro import get_sinistros, set_sinistros
 from entidades.orcamento import get_orcamentos, set_orcamentos
 from interfaces.interface_textual import loop_opções_execução

@@ -2,6 +2,11 @@ sinistros = {}
 
 def get_sinistros (): return sinistros
 
+def set_sinistros(sinistros1):
+    global sinistros
+    sinistros = sinistros1
+
+
 def inserir_sinistro(sinistro):
     numero_sisnitro = sinistro.numero
     if numero_sisnitro not in sinistros.keys():

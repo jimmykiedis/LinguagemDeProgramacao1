@@ -6,6 +6,10 @@ orcamentos = []
 
 def get_orcamentos(): return orcamentos
 
+def set_orcamentos(orcamentos1):
+    global orcamentos
+    orcamentos = orcamentos1
+
 def inserir_orcamento(orcamento):
     if orcamento not in orcamentos: orcamentos.append(orcamento)
     else: print ('Orcamento de Pecas tem cadastro --- ' + str(orcamento))
