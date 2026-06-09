@@ -4,7 +4,7 @@ from entidades.sinistro import get_sinistros, set_sinistros
 from entidades.orcamento import get_orçamentos, set_orcamentos
 from interfaces.interface_textual import loop_opções_execução
 
-nome_arquivo = 'orçamento_peças'
+nome_arquivo = 'arquivo'
 
 def salvar_aplicação():
     orçamento_peças = []
