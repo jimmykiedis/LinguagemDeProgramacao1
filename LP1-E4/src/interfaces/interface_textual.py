@@ -79,7 +79,7 @@ def loop_leitura_sinistros():
 
 def loop_leitura_peças_sinistro(sinistro):
     sair_loop = False
-    print('--- Leitura de Dados das Peças do Sinistro : ' + sinistro.nome + ' ---')
+    print('--- Leitura de Dados das Peças do Sinistro : ' + sinistro.numero + ' ---')
     while not sair_loop:
         peça = ler_peça()
         if peça is not None: sinistro.inserir_peça(peça)
