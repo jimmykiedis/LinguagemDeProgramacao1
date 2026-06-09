@@ -1,11 +1,7 @@
 sinistros = {}
 
-def get_sinistros (): return sinistros
-
-def set_sinistros(sinistros1):
-    global sinistros
-    sinistros = sinistros1
-
+def get_sinistros (): 
+    return sinistros
 
 def inserir_sinistro(sinistro):
     numero_sisnitro = sinistro.numero
@@ -15,6 +11,10 @@ def inserir_sinistro(sinistro):
     else:
         print('Sinistro ' + numero_sisnitro + ' já tem cadastro')
         return False
+
+def set_sinistros(sinistros1):
+    global sinistros
+    sinistros = sinistros1
 
 class Sinistro:
 

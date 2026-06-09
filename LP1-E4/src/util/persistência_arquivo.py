@@ -9,5 +9,6 @@ def carregar_arquivo(nome_arquivo):
     try:
         arquivo = open('../../dados/' + nome_arquivo + '.bin', 'rb')
         objetos = pickle.load(arquivo)
-    except IOError: objetos = None
+    except IOError: 
+        objetos = None
     return objetos

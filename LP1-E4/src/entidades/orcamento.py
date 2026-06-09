@@ -4,15 +4,14 @@ from entidades.peca import Peca, PeçaMecânica, PeçaLataria
 
 orcamentos = []
 
-def get_orçamentos(): return orcamentos
-
-def set_orcamentos(orcamentos1):
-    global orcamentos
-    orcamentos = orcamentos1
+def get_orçamentos(): 
+    return orcamentos
 
 def inserir_orçamento(orcamento):
-    if orcamento not in orcamentos: orcamentos.append(orcamento)
-    else: print ('Orcamento de Pecas tem cadastro --- ' + str(orcamento))
+    if orcamento not in orcamentos: 
+        orcamentos.append(orcamento)
+    else: 
+        print ('Orcamento de Pecas tem cadastro --- ' + str(orcamento))
 
 def criar_orçamento(numero_sinistro, nome_seguradora, data):
     sinistro = get_sinistros().get(numero_sinistro)
@@ -27,6 +26,10 @@ def criar_orçamento(numero_sinistro, nome_seguradora, data):
 
     orcamento = Orcamento(sinistro, seguradora, data)
     inserir_orçamento(orcamento)
+
+def set_orcamentos(orcamentos1):
+    global orcamentos
+    orcamentos = orcamentos1
 
 def filtrar_orçamentos(data_mínima_orcamento, valor_máximo_peca, cobertura_mínima_seguradora, prefixo_telefone_cliente, categoria,
                         tipo_peça_mecânica, dias_garantia_maiores, tipo_peça_lataria,cor_peça_lataria):
@@ -50,15 +53,15 @@ def filtrar_orçamentos(data_mínima_orcamento, valor_máximo_peca, cobertura_m�
         if prefixo_telefone_cliente is not None and not orçamento.sinistro.telefone.startswith(str(prefixo_telefone_cliente)):
             continue
         
-        excluir_lançamento = False
+        excluir_orcamento = False
         for peca in orçamento.sinistro.pecas.values():
             if categoria is not None and peca.categoria != categoria:
-                excluir_lançamento = True
+                excluir_orcamento = True
                 break
             
             if isinstance(peca, PeçaMecânica):
                 if tipo_peça_mecânica is not None and peca.tipo != tipo_peça_mecânica:
-                    excluir_lançamento = True
+                    excluir_orcamento = True
                     break
                 if dias_garantia_maiores is not None: 
                     prazo_dias = int(str(peca.dias_garantia).split()[0])

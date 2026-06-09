@@ -1,10 +1,7 @@
 seguradoras = {}
 
-def get_seguradoras(): return seguradoras
-
-def set_seguradoras(seguradoras1):
-    global seguradoras
-    seguradoras = seguradoras1
+def get_seguradoras(): 
+    return seguradoras
 
 def inserir_seguradora(seguradora): 
     nome_seguradora = seguradora.nome
@@ -14,6 +11,10 @@ def inserir_seguradora(seguradora):
     else:
         print('Seguradora ' + nome_seguradora + ' tem cadastro')
         return False
+    
+def set_seguradoras(seguradoras1):
+    global seguradoras
+    seguradoras = seguradoras1
 
 class Seguradora:
     
