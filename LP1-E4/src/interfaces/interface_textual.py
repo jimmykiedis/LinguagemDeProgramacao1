@@ -20,34 +20,41 @@ def loop_opções_execução():
         operação = ler_str('Opções [C: Cadastrar / I: Imprimir / S: Selecionar / T: imprimir Todos / <ENTER>: Parar]', retornar=True)
         if operação == None:
             break
-        elif operação in ('C', 'I'):
-            if operação == 'I':
-                opção_conteúdo = ler_str('A: Seguradoras / B: Sinistros / C: Orçamentos / P: Peças do sinistro /'
-                                         + '<ENTER>: retornar]',
-                                         retornar=True)
-            else:
-                opção_conteúdo = ler_str('A: Seguradoras / B: Sinistros / C: Orçamentos / <ENTER>: retornar]',
-                                         retornar=True)
-
-            if opção_conteúdo == None: pass
+        elif operação == 'C':
+            opção_conteúdo = ler_str('A: Seguradoras / B: Sinistros / C: Orçamentos / <ENTER>: retornar]',
+                                     retornar=True)
+            if opção_conteúdo == None:
+                pass
             elif opção_conteúdo == 'A':
-                if operação == 'C':
-                    loop_leitura_seguradoras()
+                loop_leitura_seguradoras()
+            elif opção_conteúdo == 'B':
+                loop_leitura_sinistros()
+            elif opção_conteúdo == 'C':
+                loop_leitura_orçamentos()
+
+        elif operação == 'I':
+            opção_conteúdo = ler_str('A: Seguradoras / B: Sinistros / C: Orçamentos / P: Peças do sinistro /'
+                                     + '<ENTER>: retornar]',
+                                     retornar=True)
+            if opção_conteúdo == None:
+                pass
+            elif opção_conteúdo == 'A':
                 imprimir_objetos(cabeçalho_seguradora, get_seguradoras().values())
-            elif opção_conteúdo in 'B':
-                if operação == 'C':
-                    loop_leitura_sinistros()
+            elif opção_conteúdo == 'B':
                 imprimir_objetos(cabeçalho_sinistro, get_sinistros().values())
             elif opção_conteúdo == 'C':
-                if operação == 'I' and opção_conteúdo in 'P':
-                    loop_leitura_orçamentos()
-                imprimir_peças_sinistro(cabeçalho_peças_sinistros)
-            elif operação == 'S':
-                loop_seleção_orçamentos()
-            elif operação == 'T':
-                imprimir_objetos(cabeçalho_seguradora, get_seguradoras().values())
-                imprimir_objetos(cabeçalho_sinistro, get_sinistros().values())
                 imprimir_objetos(cabeçalho_orçamento, get_orçamentos())
+            elif opção_conteúdo == 'P':
+                imprimir_peças_sinistro(cabeçalho_peças_sinistros)
+
+        elif operação == 'S':
+            loop_seleção_orçamentos()
+
+        elif operação == 'T':
+            imprimir_objetos(cabeçalho_seguradora, get_seguradoras().values())
+            imprimir_objetos(cabeçalho_sinistro, get_sinistros().values())
+            imprimir_objetos(cabeçalho_orçamento, get_orçamentos())
+            imprimir_peças_sinistro(cabeçalho_peças_sinistros)
 
 def imprimir_peças_sinistro(cabeçalho_peças_sinistros):
     print(cabeçalho_peças_sinistros)
@@ -180,16 +187,13 @@ def ler_orçamento():
     numero_sinistro = ler_str('numero do sisnitro')
     if numero_sinistro == None:
         return None
-    código_peça = ler_str('código da peça')
-    if código_peça == None:
-        return None
     nome_seguradora = ler_str('nome da seguradora')
     if nome_seguradora == None:
         return None
     data_orçamento = ler_data('data da orçamento')
     if data_orçamento is None:
         return None
-    return criar_orçamento(numero_sinistro, código_peça, nome_seguradora, data_orçamento)
+    return criar_orçamento(numero_sinistro, nome_seguradora, data_orçamento)
 
 def selecionar_orçamentos():
     filtros = '\nFiltros -- '

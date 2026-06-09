@@ -14,7 +14,7 @@ def inserir_orçamento(orcamento):
     if orcamento not in orcamentos: orcamentos.append(orcamento)
     else: print ('Orcamento de Pecas tem cadastro --- ' + str(orcamento))
 
-def criar_orçamento(numero_sinistro, código_peça, nome_seguradora, data):
+def criar_orçamento(numero_sinistro, nome_seguradora, data):
     sinistro = get_sinistros().get(numero_sinistro)
     if sinistro is None:
         print('Sinistro ' + numero_sinistro + ' não cadastrado')
@@ -25,7 +25,7 @@ def criar_orçamento(numero_sinistro, código_peça, nome_seguradora, data):
         print('Seguradora ' + nome_seguradora + ' não cadastrada')
         return
 
-    orcamento = Orcamento(sinistro, código_peça, seguradora, data)
+    orcamento = Orcamento(sinistro, seguradora, data)
     inserir_orçamento(orcamento)
 
 def filtrar_orçamentos(data_mínima_orcamento, valor_máximo_peca, cobertura_mínima_seguradora, prefixo_telefone_cliente, categoria,
@@ -81,9 +81,8 @@ def filtrar_orçamentos(data_mínima_orcamento, valor_máximo_peca, cobertura_m�
     return orçamentos_selecionados
 
 class Orcamento:
-    def __init__(self, sinistro, código_peça, seguradora, data):
+    def __init__(self, sinistro, seguradora, data):
         self.sinistro = sinistro
-        self.código_peça = código_peça
         self.seguradora = seguradora
         self.data = data
 
