@@ -176,7 +176,7 @@ def ler_peça():
         dias_garantia = ler_int_positivo('Dias de garantia')
         if dias_garantia == None:
             return None
-        return PeçaMecânica(código, nome, categoria, preço, mão_obra_própria, tipo, dias_garantia)
+        return PeçaMecânica(código, nome, categoria, preço, tipo, dias_garantia, mão_obra_própria)
 
     if espécie_peça == 'Pl':
         tipo = ler_tipo_peça_lataria()
@@ -185,7 +185,7 @@ def ler_peça():
         cor = ler_str('cor da peça')
         if cor == None:
             return None
-        return PeçaLataria(código, nome, categoria, preço, mão_obra_própria, tipo, cor)
+        return PeçaLataria(código, nome, categoria, preço, tipo, cor, mão_obra_própria)
     else:
         return None
 
