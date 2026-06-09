@@ -2,7 +2,7 @@ import pickle
 from util.persistência_arquivo import carregar_arquivo, salvar_arquivo
 from entidades.seguradora import get_seguradoras, set_seguradoras
 from entidades.sinistro import get_sinistros, set_sinistros
-from entidades.orcamento import get_orcamentos, set_orcamentos
+from entidades.orcamento import get_orçamentos, set_orcamentos
 from interfaces.interface_textual import loop_opções_execução
 
 def salvar_arquivo(nome_arquivo, objetos):
@@ -24,7 +24,7 @@ def salvar_aplicação():
     orçamento_peças = []
     orçamento_peças.append(get_seguradoras())
     orçamento_peças.append(get_sinistros())
-    orçamento_peças.append(get_orcamentos())
+    orçamento_peças.append(get_orçamentos())
     salvar_arquivo(nome_arquivo, objetos=orçamento_peças)
 
 def recuperar_aplicação():

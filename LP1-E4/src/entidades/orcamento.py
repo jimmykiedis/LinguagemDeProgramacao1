@@ -4,103 +4,86 @@ from entidades.peca import Peca, PeçaMecânica, PeçaLataria
 
 orcamentos = []
 
-def get_orcamentos(): return orcamentos
+def get_orçamentos(): return orcamentos
 
 def set_orcamentos(orcamentos1):
     global orcamentos
     orcamentos = orcamentos1
 
-def inserir_orcamento(orcamento):
+def inserir_orçamento(orcamento):
     if orcamento not in orcamentos: orcamentos.append(orcamento)
     else: print ('Orcamento de Pecas tem cadastro --- ' + str(orcamento))
 
-def criar_orcamento(numero_sinistro, nome_seguradora, data):
+def criar_orçamento(numero_sinistro, código_peça, nome_seguradora, data):
     sinistro = get_sinistros().get(numero_sinistro)
     if sinistro is None:
         print('Sinistro ' + numero_sinistro + ' não cadastrado')
         return
-
+    
     seguradora = get_seguradoras().get(nome_seguradora)
     if seguradora is None:
         print('Seguradora ' + nome_seguradora + ' não cadastrada')
         return
 
-    orcamento = Orcamento(sinistro, seguradora, data)
-    inserir_orcamento(orcamento)
+    orcamento = Orcamento(sinistro, código_peça, seguradora, data)
+    inserir_orçamento(orcamento)
 
-
-def selecionar_orcamento(data_mínima_orcamento=None, valor_máximo_peca=None, cobertura_mínima_seguradora=None, prefixo_telefone_cliente=None, 
-                         tipo_peça_mecânica=None, dias_garantia_maiores=None, tipo_peça_lataria=None, cor_peça_lataria=None):
-    filtros = '\nFiltros -- '
-    if data_mínima_orcamento is not None: filtros += 'Data mínima do orcamento: ' + str(data_mínima_orcamento)
-    if valor_máximo_peca is not None: filtros += ' - Maior valor da peca: ' + str(valor_máximo_peca)
-    if cobertura_mínima_seguradora is not None: filtros += '\n - Cobertura mínima da seguradora: ' + str(cobertura_mínima_seguradora)
-    if prefixo_telefone_cliente is not None: filtros += (' - DDD telefone cliente: ' + str(prefixo_telefone_cliente))
-    if tipo_peça_mecânica is not None: filtros += ' - Tipo de peça: ' + str(tipo_peça_mecânica)
-    if dias_garantia_maiores is not None: filtros += ' - Garantia maior que (dias): ' + str(dias_garantia_maiores)
-    if tipo_peça_lataria is not None: filtros += ' - Tipo de lataria: ' + str(tipo_peça_lataria)
-    if cor_peça_lataria is not None: filtros += ' - Cor da peça: ' + str(cor_peça_lataria)
-
-
-    filtrar_mecanica = tipo_peça_mecânica is not None or dias_garantia_maiores is not None
-    filtrar_lataria = tipo_peça_lataria is not None or cor_peça_lataria is not None
-
-    orcamentos_selecionados = []
-    for orcamento in orcamentos:
-        if data_mínima_orcamento is not None and orcamento.data < data_mínima_orcamento:
+def filtrar_orçamentos(data_mínima_orcamento, valor_máximo_peca, cobertura_mínima_seguradora, prefixo_telefone_cliente, categoria,
+                        tipo_peça_mecânica, dias_garantia_maiores, tipo_peça_lataria,cor_peça_lataria):
+    orçamentos_selecionados = []
+    for orçamento in orcamentos:
+        if data_mínima_orcamento is not None and orçamento.data < data_mínima_orcamento: 
             continue
 
         excluir_orcamento = False
-        for peca in orcamento.sinistro.pecas.values():
+        for peca in orçamento.sinistro.pecas.values():
             if valor_máximo_peca is not None and peca.preco > valor_máximo_peca:
                 excluir_orcamento = True
                 break
-
         if excluir_orcamento:
             continue
-
-        if cobertura_mínima_seguradora is not None and orcamento.seguradora.cobertura_percentual < cobertura_mínima_seguradora:
+        
+        if (cobertura_mínima_seguradora is not None 
+            and orçamento.seguradora.cobertura_mínima_seguradora < cobertura_mínima_seguradora):
             continue
-
-        if prefixo_telefone_cliente is not None and not orcamento.sinistro.telefone.startswith(str(prefixo_telefone_cliente)):
+        
+        if prefixo_telefone_cliente is not None and not orçamento.sinistro.telefone.startswith(str(prefixo_telefone_cliente)):
             continue
-
-        pecas_mecanicas = [peca for peca in orcamento.sinistro.pecas.values() if isinstance(peca, PeçaMecânica)]
-        pecas_lataria = [peca for peca in orcamento.sinistro.pecas.values() if isinstance(peca, PeçaLataria)]
-
-        if filtrar_mecanica and not pecas_mecanicas:
-            continue
-        if filtrar_lataria and not pecas_lataria:
-            continue
-
-        for peca in pecas_mecanicas:
-            if tipo_peça_mecânica is not None and peca.tipo != tipo_peça_mecânica:
-                excluir_orcamento = True
+        
+        excluir_lançamento = False
+        for peca in orçamento.sinistro.pecas.values():
+            if categoria is not None and peca.categoria != categoria:
+                excluir_lançamento = True
                 break
-            if dias_garantia_maiores is not None:
-                prazo_dias = int(str(peca.dias_garantia).split()[0])
-                if prazo_dias <= dias_garantia_maiores:
+            
+            if isinstance(peca, PeçaMecânica):
+                if tipo_peça_mecânica is not None and peca.tipo != tipo_peça_mecânica:
+                    excluir_lançamento = True
+                    break
+                if dias_garantia_maiores is not None: 
+                    prazo_dias = int(str(peca.dias_garantia).split()[0])
+                    if prazo_dias <= dias_garantia_maiores:
+                        excluir_orcamento = True
+                        break
+            
+            elif isinstance(peca, PeçaLataria):
+                if tipo_peça_lataria is not None and peca.tipo != tipo_peça_lataria:
                     excluir_orcamento = True
                     break
-        if excluir_orcamento:
-            continue
+                if cor_peça_lataria is not None and peca.cor != cor_peça_lataria:
+                    excluir_orcamento = True
+                    break
 
-        for peca in pecas_lataria:
-            if tipo_peça_lataria is not None and peca.tipo != tipo_peça_lataria:
-                excluir_orcamento = True
-                break
-            if cor_peça_lataria is not None and peca.cor != cor_peça_lataria:
-                excluir_orcamento = True
-                break
-        if excluir_orcamento:
+        if excluir_orcamento: 
             continue
-
-        orcamentos_selecionados.append(orcamento)
-    return filtros, orcamentos_selecionados
+        
+        orçamentos_selecionados.append(orçamento)
+    return orçamentos_selecionados
 
 class Orcamento:
-    def __init__(self, sinistro, seguradora, data):
+    def __init__(self, sinistro, código_peça, seguradora, data):
         self.sinistro = sinistro
+        self.código_peça = código_peça
         self.seguradora = seguradora
         self.data = data
 

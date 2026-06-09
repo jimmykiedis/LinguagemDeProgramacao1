@@ -3,7 +3,7 @@ from util.data import converte_str_para_data
 from entidades.sinistro import Sinistro, inserir_sinistro, get_sinistros
 from entidades.seguradora import Seguradora, inserir_seguradora, get_seguradoras
 from entidades.peca import PeçaMecânica, PeçaLataria
-from entidades.orcamento import Orcamento, filtrar_orçamentos, get_orçamentos, criar_orçamento, inserir_orçamento,
+from entidades.orcamento import Orcamento, filtrar_orçamentos, get_orçamentos, criar_orçamento, inserir_orçamento
 
 def loop_opções_execução():
     sair_loop = False
@@ -51,8 +51,8 @@ def loop_opções_execução():
 
 def imprimir_peças_sinistro(cabeçalho_peças_sinistros):
     print(cabeçalho_peças_sinistros)
-    for indice, montadora in enumerate(get_sinistros().values()):
-        imprimir_objeto(índice=indice, objeto_str=str(montadora))
+    for indice, sinistro in enumerate(get_sinistros().values()):
+        imprimir_objeto(índice=indice, objeto_str=str(sinistro))
         imprimir_objetos_internos(sinistro.pecas.values())
 
 def loop_leitura_seguradoras():
@@ -102,11 +102,11 @@ def ler_sair_loop(loop):
     except IOError: pass
     return False
 
-def loop_seleção_lançamentos():
+def loop_seleção_orçamentos():
     sair_loop = False
     print('--- Seleção de Orçamentos ---')
     while not sair_loop:
-        filtros, orçamentos_selecionados = selecionar_orcamentos()
+        filtros, orçamentos_selecionados = selecionar_orçamentos()
         if filtros is not None:
             cabeçalho = ('Orçamento : número do sinistros - nome da seguradora - data do orçamento'
                  + '\n -- cobertura percentual - cidade'
@@ -145,7 +145,7 @@ def ler_peça():
     nome = ler_str('nome da peça')
     if nome == None:
         return None
-    categoria = ler_categoria('categoria da peça')
+    categoria = ler_str('categoria da peça')
     if categoria == None:
         return None
     preço = ler_int_positivo('preço da peça')
@@ -157,7 +157,7 @@ def ler_peça():
     espécie_peça = ler_str('espécie de peça [Pm=Peça mecânica / Pl=Peça lataria]')
 
     if espécie_peça == 'Pm':
-        tipo = ler_tipo_peça_mecânica()
+        tipo = ler_tipo_peça_mecanica()
         if tipo == None:
             return None
         dias_garantia = ler_int_positivo('Dias de garantia')
@@ -191,15 +191,6 @@ def ler_orçamento():
         return None
     return criar_orçamento(numero_sinistro, código_peça, nome_seguradora, data_orçamento)
 
-    if data_mínima_orcamento is not None: filtros += 'Data mínima do orcamento: ' + str(data_mínima_orcamento)
-    if valor_máximo_peca is not None: filtros += ' - Maior valor da peca: ' + str(valor_máximo_peca)
-    if cobertura_mínima_seguradora is not None: filtros += '\n - Cobertura mínima da seguradora: ' + str(cobertura_mínima_seguradora)
-    if prefixo_telefone_cliente is not None: filtros += (' - DDD telefone cliente: ' + str(prefixo_telefone_cliente))
-    if tipo_peça_mecânica is not None: filtros += ' - Tipo de peça: ' + str(tipo_peça_mecânica)
-    if dias_garantia_maiores is not None: filtros += ' - Garantia maior que (dias): ' + str(dias_garantia_maiores)
-    if tipo_peça_lataria is not None: filtros += ' - Tipo de lataria: ' + str(tipo_peça_lataria)
-    if cor_peça_lataria is not None: filtros += ' - Cor da peça: ' + str(cor_peça_lataria)
-
 def selecionar_orçamentos():
     filtros = '\nFiltros -- '
 
@@ -209,25 +200,32 @@ def selecionar_orçamentos():
     valor_máximo_peca = ler_int_positivo('maior valor da peça', filtro=True)
     if valor_máximo_peca is not None: filtros += ' - Maior valor da peca: ' + str(valor_máximo_peca)
 
-    cobertura_mínima_seguradora = ler_int_positivo('Cobertura mínima da seguradora', filtro=True)
-    if cobertura_mínima_seguradora is not None: filtros += '\n - Cobertura mínima da seguradora: ' + str(cobertura_mínima_seguradora)
+    cobertura_mínima_seguradora = ler_int_positivo('cobertura mínima da seguradora', filtro=True)
+    if cobertura_mínima_seguradora is not None: filtros += '\n - cobertura mínima da seguradora: ' + str(cobertura_mínima_seguradora)
 
     prefixo_telefone_cliente = ler_str('prefixo do telefone do cliente', filtro=True)
     if prefixo_telefone_cliente is not None: filtros += (' - DDD telefone cliente: ' + str(prefixo_telefone_cliente))
 
+    categoria = ler_str('categoria da peça', filtro=True)
+    if categoria is not None: filtros += ' - categoria: ' + str(categoria)
+
     tipo_peça_mecânica = ler_str('tipo de peça mecânica', filtro=True)
-    if tipo_peça_mecânica is not None: filtros += ' - Tipo de peça: ' + str(tipo_peça_mecânica)
+    if tipo_peça_mecânica is not None: filtros += ' - tipo de peça: ' + str(tipo_peça_mecânica)
 
-    tipo_carro = ler_categoria_peça(filtro=True)
-    if tipo_carro is not None: filtros += '\n - tipo do carro: ' + tipo_carro
+    dias_garantia_maiores = ler_int_positivo('garantia maior que (dias)', filtro=True)
+    if dias_garantia_maiores is not None: filtros += '\n - garantia maior que (dias): ' + str(dias_garantia_maiores)
 
-    capacidade_mínima_carga_caminhão = ler_int_positivo('capacidade mínima de carga do caminhão', filtro=True)
-    if capacidade_mínima_carga_caminhão is not None: filtros += (' - capacidade mínima de carga do caminhão: '
-                                                                 + str(capacidade_mínima_carga_caminhão))
-    lançamentos_selecionados = filtrar_lançamentos(data_mínima_lançamento,
-                                                   ranking_máximo_avaliação_agência_publicidade, país_origem_montadora,
-                                                   potência_mínima_veículo, tipo_carro, capacidade_mínima_carga_caminhão)
-    return filtros, lançamentos_selecionados
+    tipo_peça_lataria = ler_str('tipo de lataria', filtro=True)
+    if tipo_peça_lataria is not None: filtros += ' - tipo de lataria: ' + str(tipo_peça_lataria)
+
+    cor_peça_lataria = ler_str('cor da peça', filtro=True)
+    if cor_peça_lataria is not None: filtros += ' - cor da peça: ' + str(cor_peça_lataria)
+
+    orçamentos_selecionados = filtrar_orçamentos(data_mínima_orcamento,
+                                                   valor_máximo_peca, cobertura_mínima_seguradora,
+                                                   prefixo_telefone_cliente, categoria, tipo_peça_mecânica, dias_garantia_maiores, 
+                                                   tipo_peça_lataria,cor_peça_lataria)
+    return filtros, orçamentos_selecionados
 
 def ler_str(dado, filtro=False, retornar=False):
     try:
