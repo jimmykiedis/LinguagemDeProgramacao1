@@ -190,7 +190,7 @@ def ler_peça():
         return None
 
 def ler_orçamento():
-    numero_sinistro = ler_int_positivo('numero do sisnitro')
+    numero_sinistro = ler_str('numero do sisnitro')
     if numero_sinistro == None:
         return None
     nome_seguradora = ler_str('nome da seguradora')

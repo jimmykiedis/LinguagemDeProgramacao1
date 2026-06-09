@@ -16,12 +16,12 @@ def inserir_orçamento(orcamento):
 def criar_orçamento(numero_sinistro, nome_seguradora, data):
     sinistro = get_sinistros().get(numero_sinistro)
     if sinistro is None:
-        print('Sinistro ' + numero_sinistro + ' não cadastrado')
+        print('Sinistro ' + str(numero_sinistro) + ' não cadastrado')
         return
     
     seguradora = get_seguradoras().get(nome_seguradora)
     if seguradora is None:
-        print('Seguradora ' + nome_seguradora + ' não cadastrada')
+        print('Seguradora ' + str(nome_seguradora) + ' não cadastrada')
         return
 
     orcamento = Orcamento(sinistro, seguradora, data)
