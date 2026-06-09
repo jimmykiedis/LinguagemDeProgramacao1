@@ -108,7 +108,7 @@ def loop_leitura_orçamentos():
 
 def ler_sair_loop(loop):
     try:
-        sair = input('-- sair do loop de ' + loop + ' [S]: ')
+        sair = input('\n-- sair do loop de ' + loop + ' [S]: ')
         if sair == 'S': 
             return True
     except IOError: 
