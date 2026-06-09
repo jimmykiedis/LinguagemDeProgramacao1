@@ -81,7 +81,8 @@ def loop_leitura_sinistros():
         if sinistro is not None:
             inserir_sinistro(sinistro)
             loop_leitura_peças_sinistro(sinistro)
-        else: print(' - ERRO : na leitura do sinistro')
+        else: 
+            print(' - ERRO : na leitura do sinistro')
         sair_loop = ler_sair_loop('cadastro de sinistro')
 
 def loop_leitura_peças_sinistro(sinistro):
@@ -90,7 +91,8 @@ def loop_leitura_peças_sinistro(sinistro):
     while not sair_loop:
         peça = ler_peça()
         if peça is not None: sinistro.inserir_peca(peça)
-        else: print(' - ERRO : na leitura de peça')
+        else: 
+            print(' - ERRO : na leitura de peça')
         sair_loop = ler_sair_loop('cadastro de peça do sinistro')
 
 def loop_leitura_orçamentos():
@@ -98,15 +100,19 @@ def loop_leitura_orçamentos():
     print('--- Leitura de Dados de Orçamentos ---')
     while not sair_loop:
         orçamento = ler_orçamento()
-        if orçamento is not None: inserir_orçamento(orçamento)
-        else: print(' - ERRO : na leitura do orçamento')
+        if orçamento is not None: 
+            inserir_orçamento(orçamento)
+        else: 
+            print(' - ERRO : na leitura do orçamento')
         sair_loop = ler_sair_loop('cadastro do orçamento')
 
 def ler_sair_loop(loop):
     try:
         sair = input('-- sair do loop de ' + loop + ' [S]: ')
-        if sair == 'S': return True
-    except IOError: pass
+        if sair == 'S': 
+            return True
+    except IOError: 
+        pass
     return False
 
 def loop_seleção_orçamentos():
@@ -146,13 +152,13 @@ def ler_sinistro():
     return Sinistro(número, cliente, telefone)
 
 def ler_peça():
-    código = ler_str('código da peça')
+    código = ler_int_positivo('código da peça')
     if código == None:
         return None
     nome = ler_str('nome da peça')
     if nome == None:
         return None
-    categoria = ler_str('categoria da peça')
+    categoria = ler_categoria_peça('categoria da peça')
     if categoria == None:
         return None
     preço = ler_int_positivo('preço da peça')
@@ -184,7 +190,7 @@ def ler_peça():
         return None
 
 def ler_orçamento():
-    numero_sinistro = ler_str('numero do sisnitro')
+    numero_sinistro = ler_int_positivo('numero do sisnitro')
     if numero_sinistro == None:
         return None
     nome_seguradora = ler_str('nome da seguradora')
@@ -231,55 +237,6 @@ def selecionar_orçamentos():
                                                    tipo_peça_lataria,cor_peça_lataria)
     return filtros, orçamentos_selecionados
 
-def ler_str(dado, filtro=False, retornar=False):
-    try:
-        string = input('- ' + dado + ' : ')
-        if len(string) == 0 and (filtro or retornar): return None
-        if len(string) > 0: return string
-    except IOError: pass
-    print('Erro na leitura do dado: ' + dado)
-    return None
-
-def ler_int_positivo(dado, filtro=False):
-    try:
-        string = input('- ' + dado + ' : ')
-        if len(string) == 0 and filtro: return None
-        int_positivo = int(string)
-        if int_positivo > 0: return int_positivo
-    except ValueError: pass
-    print('Erro na leitura/conversão do inteiro positivo: ' + dado)
-    return None
-
-def ler_float_positivo(dado, filtro=False):
-    try:
-        string = input('- ' + dado + ' : ')
-        if len(string) == 0 and filtro: return None
-        float_positivo = float(string)
-        if float_positivo > 0.0: return float_positivo
-    except ValueError: pass
-    print('Erro na leitura/conversão do flutuante positivo: ' + dado)
-    return None
-
-def ler_bool(dado, filtro=False):
-    try:
-        string = input('- ' + dado + ' [S/N]: ')
-        if len(string) == 0 and filtro: return None
-        if string == 'S': return True
-        elif string == 'N': return False
-    except ValueError: pass
-    print('Erro na leitura do booleano: ' + dado)
-    return None
-
-def ler_data(dado, filtro=False):
-    try:
-        string = input('- ' + dado + ' [dd/mm/aaaa]: ')
-        if len(string) == 0 and filtro: return None
-        data = converte_str_para_data(string)
-        if data is not None: return data
-    except IOError: pass
-    print('Erro na leitura da data: ' + dado)
-    return None
-
 def ler_categoria_peça(filtro=False):
     try:
         string = input(
@@ -288,7 +245,8 @@ def ler_categoria_peça(filtro=False):
         if string == 'A': return 'Original'
         if string == 'B': return 'Genuína'
         if string == 'C': return 'OEM'
-    except IOError: pass
+    except IOError: 
+        pass
     print('Erro na leitura da categoria de peça')
     return None
 
@@ -296,11 +254,13 @@ def ler_tipo_peça_mecanica(filtro=False):
     try:
         string = input(
             '- tipo de peça [A=suspensão / B=direção / C=motor]: ')
-        if len(string) == 0 and filtro: return None
+        if len(string) == 0 and filtro: 
+            return None
         if string == 'A': return 'suspensão'
         if string == 'B': return 'direção'
         if string == 'C': return 'motor'
-    except IOError: pass
+    except IOError: 
+        pass
     print('Erro na leitura do tipo de peça mecânica')
     return None
 
@@ -308,9 +268,74 @@ def ler_tipo_peça_lataria(filtro=False):
     try:
         string = input(
             '- tipo de peça [A=externo / B=interno]: ')
-        if len(string) == 0 and filtro: return None
+        if len(string) == 0 and filtro: 
+            return None
         if string == 'A': return 'externo'
         if string == 'B': return 'interno'
-    except IOError: pass
+    except IOError: 
+        pass
     print('Erro na leitura do tipo de peça de lataria')
+    return None
+
+def ler_str(dado, filtro=False, retornar=False):
+    try:
+        string = input('- ' + dado + ' : ')
+        if len(string) == 0 and (filtro or retornar): 
+            return None
+        if len(string) > 0: 
+            return string
+    except IOError: 
+        pass
+    print('Erro na leitura do dado: ' + dado)
+    return None
+
+def ler_int_positivo(dado, filtro=False):
+    try:
+        string = input('- ' + dado + ' : ')
+        if len(string) == 0 and filtro: 
+            return None
+        int_positivo = int(string)
+        if int_positivo > 0: 
+            return int_positivo
+    except ValueError: 
+        pass
+    print('Erro na leitura/conversão do inteiro positivo: ' + dado)
+    return None
+
+def ler_float_positivo(dado, filtro=False):
+    try:
+        string = input('- ' + dado + ' : ')
+        if len(string) == 0 and filtro: 
+            return None
+        float_positivo = float(string)
+        if float_positivo > 0.0: return float_positivo
+    except ValueError: 
+        pass
+    print('Erro na leitura/conversão do flutuante positivo: ' + dado)
+    return None
+
+def ler_bool(dado, filtro=False):
+    try:
+        string = input('- ' + dado + ' [S/N]: ')
+        if len(string) == 0 and filtro: 
+            return None
+        if string == 'S': 
+            return True
+        elif string == 'N': 
+            return False
+    except ValueError: 
+        pass
+    print('Erro na leitura do booleano: ' + dado)
+    return None
+
+def ler_data(dado, filtro=False):
+    try:
+        string = input('- ' + dado + ' [dd/mm/aaaa]: ')
+        if len(string) == 0 and filtro: 
+            return None
+        data = converte_str_para_data(string)
+        if data is not None: return data
+    except IOError: 
+        pass
+    print('Erro na leitura da data: ' + dado)
     return None
