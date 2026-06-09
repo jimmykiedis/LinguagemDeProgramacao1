@@ -26,6 +26,7 @@ def criar_orçamento(numero_sinistro, nome_seguradora, data):
 
     orcamento = Orcamento(sinistro, seguradora, data)
     inserir_orçamento(orcamento)
+    return orcamento
 
 def set_orcamentos(orcamentos1):
     global orcamentos
