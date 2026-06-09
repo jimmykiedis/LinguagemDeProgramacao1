@@ -82,7 +82,7 @@ def loop_leitura_peças_sinistro(sinistro):
     print('--- Leitura de Dados das Peças do Sinistro : ' + sinistro.numero + ' ---')
     while not sair_loop:
         peça = ler_peça()
-        if peça is not None: sinistro.inserir_peça(peça)
+        if peça is not None: sinistro.inserir_peca(peça)
         else: print(' - ERRO : na leitura de peça')
         sair_loop = ler_sair_loop('cadastro de peça do sinistro')
 
