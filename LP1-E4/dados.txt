@@ -1,0 +1,68 @@
+ENTRADAS
+
+seguradoras[nome, cidade, cobertura_percentual]:
+	Porto Seguro, Dourados, 90;
+	Bradesco Seguro, Campo Grande, 80;
+	SulAmérica, Ponta Porã, 90;
+	Mapfre, Dourados, 85;
+	Allianz, Campo Grande, 75;
+	Tokio Marine, Ponta Porã, 90;
+	Azos Seguros, São Paulo, 99;
+	Liberty Seguros, Dourados, 85;
+	Sompo Seguros, Maracajú, 75
+	HDI Seguros, Naviraí, 82
+
+Sinistros[numero, nome, telefone] → Peças[código, nome, categoria, preço, tipo, dias_garantia/cor, mão_obra_própria]
+	1, Leon, 67 99888-1100
+    		→ 11, bloco, OEM, 245, motor, 90, False
+    		→ 12, cabeçote, OEM, 250, motor, 180, False
+
+	6, Scott, 67 98988-1101
+    		→ 21, para-choque, Original, 200, externo, preto, False
+    		→ 22, capô, Original, 180, externo, cinza, False
+
+	11, Kennedy, 67 96898-1000
+    		→ 31, painel instrumentos, OEM, 180, interno, 180, True
+    		→ 33, pedais, OEM, 220, interno, 180, True
+
+	19, Chris, 67 90898-0100
+    		→ 41, painel central, OEM, 135, interno, cinza, True
+    		→ 44, capô, Original, 60, externo, cinza, True
+
+	98, Redfield, 66 91681-1198
+		→ 51, pistão, Genuína, 150, motor, 365, True
+    		→ 55, biela, Genuína, 230, motor, 365, True
+
+	102, Jill, 67 99234-8811
+    		→ 61, bomba oleo, OEM, 150, motor, 180, False
+    		→ 62, mola, OEM, 210, suspensão, 180, False
+
+	145, Claire, 67 98112-2290
+    		→ 71, retrovisor, OEM, 210, externo, cinza, False
+    		→ 72, porta dianteira, OEM, 170, externo, cinza, False
+
+	201, Ada, 65 99677-4400
+    		→ 81, radiador, Genuína, 160, motor, 365, True
+    		→ 82, bieleta, Genuína, 140, suspensão, 365, True
+
+	250, Rebecca, 67 99123-4455
+    		→ 91, farol, Original, 140, externo, prata, False
+    		→ 92, lanterna, OEM, 200, externo, preto, True
+
+	310, Carlos, 67 98455-7712
+    		→ 101, barra estabilizadora, OEM, 190, suspensão, 180, False
+    		→ 102, bucha estabilizadora, Original, 320, suspensão, 365, True
+
+Orçamentos[numero, nome_seguradora, data]
+	1, Porto Seguro, 12/06/2026
+	6, Bradesco Seguros, 10/10/2026
+	11, SulAmérica, 03/08/2026
+	19, Mapfre, 02/05/2026
+	98, Allianz, 28/04/2026
+	102, Tokio Marine, 15/07/2026
+	145, Azos Seguros, 22/09/2026
+	201, Liberty Seguros, 05/11/2026
+	250, Sompo Seguros, 18/12/2026
+	310, HDI Seguros, 09/09/2026
+	
+
