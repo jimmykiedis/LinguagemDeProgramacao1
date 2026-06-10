@@ -26,8 +26,8 @@ Sinistros[numero, nome, telefone] → Peças[código, nome, categoria, preço, t
     		→ 33, pedais, OEM, 220, interno, 180, True
 
 	19, Chris, 67 90898-0100
-    		→ 41, painel central, OEM, 135, interno, cinza, True
-    		→ 44, capô, Original, 60, externo, cinza, True
+    		→ 41, painel, OEM, 135, interno, cinza, True
+    		→ 44, capô, OEM, 60, externo, cinza, True
 
 	98, Redfield, 66 91681-1198
 		→ 51, pistão, Genuína, 150, motor, 365, True

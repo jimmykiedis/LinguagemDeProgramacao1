@@ -41,46 +41,44 @@ def filtrar_orçamentos(data_mínima_orcamento, valor_máximo_peca, cobertura_m�
 
         pecas_orçamento = list(orçamento.sinistro.pecas.values())
 
-        for peca in pecas_orçamento:
-            if valor_máximo_peca is not None and peca.preco > valor_máximo_peca:
-                break
-        else:
-            if (cobertura_mínima_seguradora is not None 
-                and orçamento.seguradora.cobertura_percentual < cobertura_mínima_seguradora):
-                continue
-            
-            if prefixo_telefone_cliente is not None and not orçamento.sinistro.telefone.startswith(str(prefixo_telefone_cliente)):
-                continue
-
-            if categoria is not None and not any(peca.categoria == categoria for peca in pecas_orçamento):
-                continue
-
-            if tipo_peça_mecânica is not None:
-                if not any(
-                    peca_mecânica_atende_filtros(
-                        peca,
-                        categoria,
-                        tipo_peça_mecânica
-                    )
-                    for peca in pecas_orçamento
-                    if isinstance(peca, PeçaMecânica)
-                ):
-                    continue
-
-            if tipo_peça_lataria is not None:
-                if not any(
-                    peca_lataria_atende_filtros(
-                        peca,
-                        categoria,
-                        tipo_peça_lataria
-                    )
-                    for peca in pecas_orçamento
-                    if isinstance(peca, PeçaLataria)
-                ):
-                    continue
-            
-            orçamentos_selecionados.append(orçamento)
+        if any(valor_máximo_peca is not None and peca.preco > valor_máximo_peca for peca in pecas_orçamento):
             continue
+
+        if (cobertura_mínima_seguradora is not None 
+            and orçamento.seguradora.cobertura_percentual < cobertura_mínima_seguradora):
+            continue
+        
+        if prefixo_telefone_cliente is not None and not orçamento.sinistro.telefone.startswith(str(prefixo_telefone_cliente)):
+            continue
+
+        if categoria is not None and any(peca.categoria != categoria for peca in pecas_orçamento):
+            continue
+
+        if tipo_peça_mecânica is not None:
+            if any(
+                not peca_mecânica_atende_filtros(
+                    peca,
+                    categoria,
+                    tipo_peça_mecânica
+                )
+                for peca in pecas_orçamento
+                if isinstance(peca, PeçaMecânica)
+            ):
+                continue
+
+        if tipo_peça_lataria is not None:
+            if any(
+                not peca_lataria_atende_filtros(
+                    peca,
+                    categoria,
+                    tipo_peça_lataria
+                )
+                for peca in pecas_orçamento
+                if isinstance(peca, PeçaLataria)
+            ):
+                continue
+        
+        orçamentos_selecionados.append(orçamento)
 
     return orçamentos_selecionados
 
