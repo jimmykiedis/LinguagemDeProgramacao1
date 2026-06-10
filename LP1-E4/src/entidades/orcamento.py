@@ -48,7 +48,7 @@ def filtrar_orçamentos(data_mínima_orcamento, valor_máximo_peca, cobertura_m�
             continue
         
         if (cobertura_mínima_seguradora is not None 
-            and orçamento.seguradora.cobertura_mínima_seguradora < cobertura_mínima_seguradora):
+            and orçamento.seguradora.cobertura_percentual < cobertura_mínima_seguradora):
             continue
         
         if prefixo_telefone_cliente is not None and not orçamento.sinistro.telefone.startswith(str(prefixo_telefone_cliente)):
