@@ -27,6 +27,21 @@ def normalizar_texto(texto):
     return texto.strip().rstrip(';')
 
 
+def nomes_variantes_seguradora(nome_seguradora):
+    nome_base = ' '.join(nome_seguradora.strip().split())
+    variantes = [nome_base]
+
+    if nome_base.endswith(' Seguros'):
+        variantes.append(nome_base[:-8])
+    elif nome_base.endswith(' Seguro'):
+        variantes.append(nome_base[:-7])
+    else:
+        variantes.append(nome_base + ' Seguros')
+        variantes.append(nome_base + ' Seguro')
+
+    return variantes
+
+
 def ler_dados_txt():
     with ARQUIVO_TXT.open('r', encoding='utf-8') as arquivo:
         linhas = [linha.rstrip() for linha in arquivo]
@@ -140,16 +155,12 @@ def cadastrar_orcamentos(orcamentos_dados):
 
 def resolver_nome_seguradora(nome_seguradora):
     seguradoras = get_seguradoras()
-    if nome_seguradora in seguradoras:
-        return nome_seguradora
+    seguradoras_por_nome = {nome.casefold(): nome for nome in seguradoras}
 
-    se_nome_sem_sufixo = nome_seguradora.removesuffix(' Seguros')
-    if se_nome_sem_sufixo in seguradoras:
-        return se_nome_sem_sufixo
-
-    nome_com_sufixo = nome_seguradora if nome_seguradora.endswith(' Seguros') else nome_seguradora + ' Seguros'
-    if nome_com_sufixo in seguradoras:
-        return nome_com_sufixo
+    for variante in nomes_variantes_seguradora(nome_seguradora):
+        chave = seguradoras_por_nome.get(variante.casefold())
+        if chave is not None:
+            return chave
 
     return nome_seguradora
 

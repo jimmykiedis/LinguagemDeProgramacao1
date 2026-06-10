@@ -2,7 +2,7 @@ ENTRADAS
 
 seguradoras[nome, cidade, cobertura_percentual]:
 	Porto Seguro, Dourados, 90;
-	Bradesco Seguro, Campo Grande, 80;
+	Bradesco Seguros, Campo Grande, 80;
 	SulAmérica, Ponta Porã, 90;
 	Mapfre, Dourados, 85;
 	Allianz, Campo Grande, 75;
@@ -18,11 +18,11 @@ Sinistros[numero, nome, telefone] → Peças[código, nome, categoria, preço, t
     		→ 12, cabeçote, OEM, 250, motor, 180, False
 
 	6, Scott, 67 98988-1101
-    		→ 21, para-choque, Original, 200, externo, preto, False
+    		→ 21, parachoque, Original, 200, externo, preto, False
     		→ 22, capô, Original, 180, externo, cinza, False
 
 	11, Kennedy, 67 96898-1000
-    		→ 31, painel instrumentos, OEM, 180, interno, 180, True
+    		→ 31, painel, OEM, 180, interno, 180, True
     		→ 33, pedais, OEM, 220, interno, 180, True
 
 	19, Chris, 67 90898-0100
@@ -38,7 +38,7 @@ Sinistros[numero, nome, telefone] → Peças[código, nome, categoria, preço, t
     		→ 62, mola, OEM, 210, suspensão, 180, False
 
 	145, Claire, 67 98112-2290
-    		→ 71, retrovisor, OEM, 210, externo, cinza, False
+    		→ 71, retrovisor, Genuína, 210, externo, cinza, False
     		→ 72, porta dianteira, OEM, 170, externo, cinza, False
 
 	201, Ada, 65 99677-4400
